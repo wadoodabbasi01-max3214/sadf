@@ -1,1 +1,50 @@
 
+name: Build RiggaRun (Windows x64)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Compile RiggaRun
+        shell: pwsh
+        run: |
+          $solution = Get-ChildItem -Path . -Filter 'RiggaRun.sln' -Recurse | Select-Object -First 1
+          if (-not $solution) {
+            throw "RiggaRun.sln not found!"
+          }
+
+          $solutionDir = Split-Path -Parent $solution.FullName
+
+          msbuild $solution.FullName /m /p:Configuration=Release /p:Platform=x64 /v:minimal
+
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+          $outputDir = Join-Path $solutionDir 'bin\Release'
+
+          if (-not (Test-Path $outputDir)) {
+            throw "Build output not found!"
+          }
+
+          "ARTIFACT_PATH=$outputDir\*" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: RiggaRun-Release-x64
+          path: ${{ env.ARTIFACT_PATH }}
+          if-no-files-found: error
