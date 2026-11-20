@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals"><VCProjectVersion>17.0</VCProjectVersion><Keyword>Win32Proj</Keyword><ProjectGuid>{E7E3CC07-0CF9-4A70-975A-B3DFA5CF9826}</ProjectGuid><RootNamespace>RiggaRun</RootNamespace><WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration"><ConfigurationType>Application</ConfigurationType><UseDebugLibraries>true</UseDebugLibraries><PlatformToolset>v143</PlatformToolset><CharacterSet>Unicode</CharacterSet></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration"><ConfigurationType>Application</ConfigurationType><UseDebugLibraries>false</UseDebugLibraries><PlatformToolset>v143</PlatformToolset><WholeProgramOptimization>true</WholeProgramOptimization><CharacterSet>Unicode</CharacterSet></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" /></ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" /></ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup><OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir><IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir><TargetName>RiggaRun</TargetName></PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile><WarningLevel>Level3</WarningLevel><SDLCheck>true</SDLCheck><ConformanceMode>true</ConformanceMode><LanguageStandard>stdcpp20</LanguageStandard><PrecompiledHeader>NotUsing</PrecompiledHeader><AdditionalIncludeDirectories>$(ProjectDir)..\Include;$(ProjectDir);$(ProjectDir)Config;$(ProjectDir)SDK;$(ProjectDir)Memory;$(ProjectDir)Esp;$(ProjectDir)Overlay;$(ProjectDir)ImGUI;$(ProjectDir)Misc;$(ProjectDir)Misc\Pch;$(ProjectDir)Security;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories><PreprocessorDefinitions>WIN32;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions></ClCompile>
+    <Link><SubSystem>Windows</SubSystem><GenerateDebugInformation>true</GenerateDebugInformation><AdditionalLibraryDirectories>$(ProjectDir)..\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories><AdditionalDependencies>vmm.lib;leechcore.lib;FTD3XX.lib;d3d11.lib;dwmapi.lib;d2d1.lib;dwrite.lib;windowscodecs.lib;winmm.lib;ws2_32.lib;iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies></Link>
+    <PostBuildEvent><Command>copy /Y "$(ProjectDir)..\Lib\vmm.dll" "$(OutDir)vmm.dll" &gt;nul
+copy /Y "$(ProjectDir)..\Lib\leechcore.dll" "$(OutDir)leechcore.dll" &gt;nul
+copy /Y "$(ProjectDir)..\Lib\FTD3XX.dll" "$(OutDir)FTD3XX.dll" &gt;nul</Command></PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="LocalMenu.cpp" />
+    <ClCompile Include="MakcuApi.cpp" />
+    <ClCompile Include="AimSystem.cpp" />
+    <ClCompile Include="Memory\Memory.cpp" />
+    <ClCompile Include="Misc\Colour.cpp" /><ClCompile Include="Misc\Vector.cpp" /><ClCompile Include="Misc\Pch\Pch.cpp" />
+    <ClCompile Include="Esp\EspDraw.cpp" /><ClCompile Include="Esp\PlayerEsp.cpp" />
+    <ClCompile Include="Overlay\Overlay.cpp" /><ClCompile Include="Overlay\OverlayNotify.cpp" />
+    <ClCompile Include="SDK\CameraFinder.cpp" /><ClCompile Include="SDK\Il2Cpp.cpp" /><ClCompile Include="SDK\Inventory.cpp" /><ClCompile Include="SDK\RobRunCamera.cpp" /><ClCompile Include="SDK\RobRunMemory.cpp" /><ClCompile Include="SDK\RobRunReader.cpp" /><ClCompile Include="SDK\SkeletonExtractor.cpp" /><ClCompile Include="SDK\WorldEntities.cpp" />
+    <ClCompile Include="ImGUI\imgui.cpp" /><ClCompile Include="ImGUI\imgui_draw.cpp" /><ClCompile Include="ImGUI\imgui_tables.cpp" /><ClCompile Include="ImGUI\imgui_widgets.cpp" /><ClCompile Include="ImGUI\imgui_impl_dx11.cpp" /><ClCompile Include="ImGUI\imgui_impl_win32.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Memory\Memory.h" /><ClInclude Include="LocalMenu.h" /><ClInclude Include="MakcuApi.h" /><ClInclude Include="AimSystem.h" /><ClInclude Include="Esp\EspDraw.h" /><ClInclude Include="Esp\PlayerEsp.h" /><ClInclude Include="Overlay\Overlay.h" /><ClInclude Include="SDK\RobRunReader.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
